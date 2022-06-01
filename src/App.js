@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
-import Hello from './component/Hello';
 import styled from "styled-components";
+import Hello from './component/Hello';
 import Header from './component/Header';
 import DayList from './component/DayList';
 import Day from './component/Day';
@@ -31,7 +31,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<DayList />} />
           <Route path='/day/:day' element={<Day />} />
-          {/* <Route element={<EmptyPage />}>잘못된</Route> */}
+          {/* <Route path='/' element={<EmptyPage />}>잘못된</Route> */}
         </Routes>
       </div>
     </BrowserRouter>
