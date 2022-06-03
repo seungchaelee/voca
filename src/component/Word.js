@@ -9,9 +9,9 @@ export default function Word({ words: w }) {
     setIsShow(!isShow);
   }
 
-  const toggleDone = () => {
+  const toggleDone = async () => {
     // setIsDone(!isDone);
-    fetch(`http://localhost:3001/words/${words.id}`, {
+    const res = await fetch(`http://localhost:3001/words/${words.id}`, {
       method: "PUT",
       headers: {
         'content-Type' : 'application/json',
@@ -20,23 +20,28 @@ export default function Word({ words: w }) {
         ...words,
         isDone: !isDone
       }),
-    })
-    .then(res => {
-      if (res.ok) {
-        setIsDone(!isDone);
-      }
     });
+
+    if (res.ok) {
+      setIsDone(!isDone);
+    }
+    const data = await res.json();
+
+    return data;
   }
 
-  function del() {
+  async function del() {
     if(window.confirm('삭제 ?')) {
-      fetch(`http://localhost:3001/words/${words.id}`, {
+      const res = await fetch(`http://localhost:3001/words/${words.id}`, {
         method: "DELETE",
-      }).then(res => {
-        if(res.ok) {
-          setWords({ id: 0 });
-        }
       });
+
+      if (res.ok) {
+        setWords({ id: 0 });
+      }
+      const data = await res.json();
+
+      return data;
     }
   }
 
