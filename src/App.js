@@ -6,6 +6,8 @@ import Hello from './component/Hello';
 import Header from './component/Header';
 import DayList from './component/DayList';
 import Day from './component/Day';
+import CreateWord from './component/CreateWord';
+import CreateDay from './component/CreateDay';
 import EmptyPage from './component/EmptyPage';
 
 const Background = styled.div`
@@ -31,7 +33,9 @@ function App() {
         <Routes>
           <Route exact path='/' element={<DayList />} />
           <Route path='/day/:day' element={<Day />} />
-          {/* <Route path='/' element={<EmptyPage />}>잘못된</Route> */}
+          <Route path='/create_word' element={<CreateWord />} />
+          <Route path='/create_day' element={<CreateDay />} />
+          <Route path='*' element={<EmptyPage />}>잘못된</Route>
         </Routes>
       </div>
     </BrowserRouter>
