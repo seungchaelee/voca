@@ -23,6 +23,10 @@
     {
       "day": 6,
       "id": 6
+    },
+    {
+      "day": 7,
+      "id": 7
     }
   ],
   "words": [
@@ -91,10 +95,24 @@
     },
     {
       "day": "6",
-      "eng": "hi",
-      "kor": "안녕",
+      "eng": "bye",
+      "kor": "잘가",
       "isDone": false,
-      "id": 13
+      "id": 14
+    },
+    {
+      "day": "7",
+      "eng": "seven",
+      "kor": "7",
+      "isDone": false,
+      "id": 15
+    },
+    {
+      "day": "5",
+      "eng": "FiveGuys",
+      "kor": "다섯 남자들",
+      "isDone": false,
+      "id": 16
     }
   ]
 }

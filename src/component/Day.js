@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Word from "./Word";
 import useFetch from "../hooks/useFetch";
+import Loading from "./Loading";
 
 export default function Day() {
   // const day = useParams().day;
@@ -24,6 +25,7 @@ export default function Day() {
   return (
     <>
       <h2>Day {day}</h2>
+      {words.length === 0 && <Loading text="가져오는 중입니다" />}
       <table>
         <tbody>
           {words.map((word) =>

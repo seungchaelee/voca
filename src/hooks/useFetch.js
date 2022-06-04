@@ -13,8 +13,8 @@ export default function useFetch(url) {
   }, [url]);
 
   useEffect(() => {
-    loadJson(url);
-  }, [loadJson, url]);
+    loadJson();
+  }, [loadJson]);
 
   return data;
 }

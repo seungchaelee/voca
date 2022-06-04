@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import Loading from "./Loading";
 
 export default function DayList() {
   // const [days, setDays] = useState([]);
@@ -19,6 +20,7 @@ export default function DayList() {
 
   return (
     <>
+      {days.length === 0 && <Loading text="가져오는 중입니다" />}
       <ul className="list_day">
         {days.map((dayNumber) =>
           <li key={dayNumber.id}>

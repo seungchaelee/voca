@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import Loading from "./Loading";
 
 export default function CreateWord() {
   const days = useFetch("http://localhost:3001/days");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const engRef = useRef(null);
   const korRef = useRef(null);
   const dayRef = useRef(null);
@@ -15,26 +17,30 @@ export default function CreateWord() {
     // console.log(`Kor : ${korRef.current.value}`);
     // console.log(`Day : ${dayRef.current.value}`);
 
-    const res = await fetch(`http://localhost:3001/words/`, {
-      method: "POST",
-      headers: {
-        'content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        day: dayRef.current.value,
-        eng: engRef.current.value,
-        kor: korRef.current.value,
-        isDone: false
-      }),
-    });
+    if (!isLoading) {
+      setIsLoading(true);
+      const res = await fetch(`http://localhost:3001/words/`, {
+        method: "POST",
+        headers: {
+          'content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          day: dayRef.current.value,
+          eng: engRef.current.value,
+          kor: korRef.current.value,
+          isDone: false
+        }),
+      });
 
-    if (res.ok) {
-      alert("생성 완료");
-      navigate(`/day/${dayRef.current.value}`);
+      if (res.ok) {
+        alert("생성 완료");
+        navigate(`/day/${dayRef.current.value}`);
+        setIsLoading(false);
+      }
+      const data = await res.json();
+
+      return data;
     }
-    const data = await res.json();
-
-    return data;
   }
 
   return (
@@ -56,7 +62,7 @@ export default function CreateWord() {
           )}
         </select>
       </div>
-      <button>저장</button>
+      <button>{isLoading ? <Loading text="생성 중" /> : "저장"}</button>
     </form>
   );
 }
