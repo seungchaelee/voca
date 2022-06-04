@@ -38,6 +38,7 @@ export default function Word({ words: w }) {
 
       if (res.ok) {
         setWords({ id: 0 });
+        alert('삭제 완료');
       }
       const data = await res.json();
 
