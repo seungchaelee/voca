@@ -25,7 +25,7 @@ export default function Day() {
   return (
     <>
       <h2>Day {day}</h2>
-      {words.length === 0 && <Loading text="가져오는 중입니다" />}
+      {words.length === 0 && <Loading text="단어 가져오는 중" />}
       <table>
         <tbody>
           {words.map((word) =>

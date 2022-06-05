@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import Loading from "./Loading";
 
 export default function Word({ words: w }) {
   const [words, setWords] = useState(w);
   const [isShow, setIsShow] = useState(false);
   const [isDone, setIsDone] = useState(words.isDone);
+  const [isLoading, setIsLoading] = useState(false);
 
   function toggleShow() {
     setIsShow(!isShow);
@@ -14,7 +16,7 @@ export default function Word({ words: w }) {
     const res = await fetch(`http://localhost:3001/words/${words.id}`, {
       method: "PUT",
       headers: {
-        'content-Type' : 'application/json',
+        'content-Type': 'application/json',
       },
       body: JSON.stringify({
         ...words,
@@ -31,19 +33,24 @@ export default function Word({ words: w }) {
   }
 
   async function del() {
-    if(window.confirm('삭제 ?')) {
-      const res = await fetch(`http://localhost:3001/words/${words.id}`, {
-        method: "DELETE",
-      });
+    if (!isLoading) {
+      setIsLoading(true);
+      if (window.confirm('삭제 ?')) {
+        const res = await fetch(`http://localhost:3001/words/${words.id}`, {
+          method: "DELETE",
+        });
 
-      if (res.ok) {
-        setWords({ id: 0 });
-        alert('삭제 완료');
+        if (res.ok) {
+          setWords({ id: 0 });
+          setIsLoading(false);
+          alert('삭제 완료');
+        }
+        const data = await res.json();
+
+        return data;
       }
-      const data = await res.json();
-
-      return data;
     }
+
   }
 
   if (words.id === 0) {
@@ -60,7 +67,7 @@ export default function Word({ words: w }) {
         <td>{isShow && words.kor}</td>
         <td>
           <button onClick={toggleShow}>뜻 {isShow ? "숨기기" : "보기"}</button>
-          <button onClick={del} className="btn_del">삭제</button>
+          <button onClick={del} className="btn_del">{isLoading ? <Loading text="삭제 중" /> : "삭제"}</button>
         </td>
       </tr>
     </>
