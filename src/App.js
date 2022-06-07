@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import styled from "styled-components";
-// import Hello from './component/Hello';
+import Hello from './component/Hello';
 import Header from './component/Header';
 import DayList from './component/DayList';
 import Day from './component/Day';
